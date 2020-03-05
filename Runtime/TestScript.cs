@@ -1,16 +1,20 @@
 ﻿using UnityEngine;
 
-public class TestScript : MonoBehaviour
+namespace Vrlife.Core
 {
-    // Start is called before the first frame update
-    void Start()
+    public class TestScript : MonoBehaviour
     {
+        // Start is called before the first frame update
+        void Start()
+        {
         
-    }
+        }
+        
 
-    // Update is called once per frame
-    void Update()
-    {
+        // Update is called once per frame
+        void Update()
+        {
         
+        }
     }
 }
