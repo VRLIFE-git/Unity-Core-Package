@@ -1,6 +1,6 @@
 {
   "name": "com.vrlife.core",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "displayName": "VRL - Core Package",
   "description": "VRLIFE Core package, with essential functions.",
   "dependencies": {   
