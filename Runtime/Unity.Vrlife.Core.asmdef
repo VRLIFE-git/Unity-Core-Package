@@ -1,7 +1,8 @@
 {
     "name": "Vrlife.Core",
     "references": [
-        "Unity.TextMeshPro"
+        "Unity.TextMeshPro",
+        "Zenject"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
