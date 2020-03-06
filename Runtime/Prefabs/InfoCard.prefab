@@ -118,7 +118,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1446753189725031283}
   m_Direction: 2
   m_Value: 1
-  m_Size: 1
+  m_Size: 0.38818282
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -379,7 +379,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   container: {fileID: 1446753190185900616}
-  content: {fileID: 0}
+  content: {fileID: 656830252020058078}
   background: {fileID: 4456607137153532723}
 --- !u!1 &1446753189013339754
 GameObject:
@@ -1464,3 +1464,15 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 9206933295991150825}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &656830252020058078 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8563628429405462327, guid: da91b5c75e91e864b8d797d04c40b6d8,
+    type: 3}
+  m_PrefabInstance: {fileID: 9206933295991150825}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
