@@ -25,7 +25,11 @@ public class Loading : MonoBehaviour
     private void Update()
     {
         loader.transform.eulerAngles = new Vector3(0f, 0f,-(Time.time * loadingSpeed * 100));
-        percentText.text = System.Math.Round(_asyncOperation.progress * 100 , 2) + " %";
+        percentText.text = Math.Round(_asyncOperation.progress * 100 , 2) + " %";
+        if (_asyncOperation.progress > .89)
+        {
+            _asyncOperation.allowSceneActivation = true;
+        }
     }
 
     IEnumerator spinner(AsyncOperation asyncOperation)
@@ -36,6 +40,7 @@ public class Loading : MonoBehaviour
     public void StartLoading(AsyncOperation asyncOperation)
     {
         _asyncOperation = asyncOperation;
+        _asyncOperation.allowSceneActivation = false;
         StartCoroutine(spinner(asyncOperation));
         loadingType = LoadingType.Percentage;
     }
