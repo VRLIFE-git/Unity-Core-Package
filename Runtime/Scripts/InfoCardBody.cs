@@ -8,7 +8,7 @@ namespace Vrlife.Core
     public class InfoCardBody : MonoBehaviour
     {
         [SerializeField] private Transform container;
-        [SerializeField] private TextMeshProUGUI content;
+        [SerializeField] public TextMeshProUGUI content;
         [SerializeField] private Image background;
 
         private List<GameObject> _content;
@@ -18,21 +18,16 @@ namespace Vrlife.Core
             _content = new List<GameObject>();
         }
 
-        public void AddBody(GameObject go)
+        public void AddBody(GameObject gameObject)
         {
-            _content.Add(go);
-            go.transform.SetParent(container);
+            _content.Add(gameObject);
+            gameObject.transform.SetParent(container, false);
         }
         
         public void Clear()
         {
             _content.Clear();
             container.ClearChildren();
-        }
-        
-        public void SetContent(string value)
-        {
-            content.text = value;
         }
 
         public void SetTextColor(Color color)

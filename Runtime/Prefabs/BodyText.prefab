@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8563628429405462326}
   - component: {fileID: 8563628429405462327}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: BodyText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -33,7 +33,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -156,7 +156,7 @@ MonoBehaviour:
     spaceCount: 186
     wordCount: 185
     linkCount: 0
-    lineCount: 37
+    lineCount: 31
     pageCount: 1
     materialCount: 1
   m_isUsingLegacyAnimationComponent: 0

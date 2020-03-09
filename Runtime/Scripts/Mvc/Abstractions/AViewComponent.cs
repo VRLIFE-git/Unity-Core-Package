@@ -31,5 +31,15 @@ namespace Vrlife.Core.Mvc.Abstractions
         }
 
         public bool IsEnabled => enabled;
+
+        private void OnDestroy()
+        {
+            OnDestroyed();
+        }
+
+        public virtual void OnDestroyed()
+        {
+            
+        }
     }
 }

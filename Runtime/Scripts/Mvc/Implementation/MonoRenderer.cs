@@ -1,8 +1,10 @@
 ﻿using UnityEngine;
 using Vrlife.Core.Mvc.Abstractions;
+using Zenject;
 
 namespace Vrlife.Core.Mvc.Implementations
 {
+    
     [RequireComponent(typeof(Renderer))]
     public class MonoRenderer : AViewComponent, IRendererComponent
     {
@@ -24,8 +26,8 @@ namespace Vrlife.Core.Mvc.Implementations
         public bool ToggleVisible()
         {
             SetVisible(!IsVisible);
-            
+
             return IsVisible;
         }
-    }    
+    }
 }
