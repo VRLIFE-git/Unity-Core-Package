@@ -1,6 +1,4 @@
-﻿using System;
-using TMPro;
-using UnityEditor.Experimental.Networking.PlayerConnection;
+﻿using TMPro;
 using UnityEngine;
 
 [SerializeField]
@@ -36,7 +34,7 @@ public class Loading : MonoBehaviour
         loader.transform.eulerAngles = new Vector3(0f, 0f,-(Time.time * loadingSpeed * 100));
         if (loadingType == LoadingType.Percentage && asyncOperation != null)
         {
-            percentText.text = asyncOperation.progress + " %";
+            percentText.text = (asyncOperation.progress * 100) + " %";
         }
     }
 }
