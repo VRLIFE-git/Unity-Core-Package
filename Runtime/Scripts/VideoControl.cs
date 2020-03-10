@@ -1,14 +1,41 @@
 ﻿
+using System;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.Video;
 
 namespace Vrlife.Core
 {
     public class VideoControl : MonoBehaviour
     {
+        public VideoPlayer videoPlayer;
+        public Loading loadingPrefab;
+        private Loading _loading;
+        private GameObject loader;
+        private void Start()
+        {
+            _loading = GameObject.Instantiate(loadingPrefab);
+            _loading.transform.SetParent(videoPlayer.transform, false);
+            _loading.loadingType = LoadingType.Infinite;
+            _loading.percentText.gameObject.SetActive(false);
+            loader = _loading.loader;
+            
+            videoPlayer.prepareCompleted += DisableLoader;
+            videoPlayer.Prepare();
+            
+        }
+
+        private void Update()
+        {
+            if (!videoPlayer.isPrepared)
+            {
+                loader.transform.eulerAngles = new Vector3(0f, 0f,-(Time.time * 100));
+            }
+        }
+
         private bool paused = false;
     
-        public void PauseUnpause(VideoPlayer videoPlayer)
+        public void PauseUnpause()
         {
             if (paused)
             {
@@ -21,6 +48,12 @@ namespace Vrlife.Core
                 paused = true;
             }
         }
+
+        public void DisableLoader(VideoPlayer localVideoPlayer)
+        {
+            _loading.gameObject.SetActive(false);
+        }
+        
     }
 }
 

@@ -215,10 +215,10 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 3410767930374028375}
         m_MethodName: PauseUnpause
-        m_Mode: 2
+        m_Mode: 1
         m_Arguments:
-          m_ObjectArgument: {fileID: -1396501464320170645}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Video.VideoPlayer, UnityEngine
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -236,6 +236,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b92f290ca0f9f847b91a7262c7c74ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  videoPlayer: {fileID: -1396501464320170645}
+  loadingPrefab: {fileID: 1309314636221950388, guid: f79cdc20adf209245a1d0fabb6ff6626,
+    type: 3}
 --- !u!1 &5801559176974371657
 GameObject:
   m_ObjectHideFlags: 0
