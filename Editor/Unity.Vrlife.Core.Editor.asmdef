@@ -1,5 +1,5 @@
 {
-    "name": "Unity.Vrlife.Core.Editor",
+    "name": "Vrlife.Core.Editor",
     "references": [],
     "includePlatforms": [],
     "excludePlatforms": [
