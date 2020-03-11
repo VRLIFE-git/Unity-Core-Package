@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEditor;
 
 namespace Vrlife.Core.Editor
 {
@@ -14,7 +15,7 @@ namespace Vrlife.Core.Editor
         public static void ShowWindow()
         {
             //Show existing window instance. If one doesn't exist, make one.
-            EditorWindow.GetWindow(typeof(MyWindow));
+            EditorWindow.GetWindow(typeof(PackageWindowUpdater));
         }
     
         void OnGUI()
@@ -28,6 +29,4 @@ namespace Vrlife.Core.Editor
             EditorGUILayout.EndToggleGroup ();
         }
     }
-}
-
 }
