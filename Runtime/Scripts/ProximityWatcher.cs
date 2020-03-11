@@ -64,8 +64,8 @@ namespace Vrlife.Core
 
         private GameObject GetObject(Component other)
         {
-            if (!watchedTags.Contains(other.gameObject.tag)) return null;
-            if (!watchCollision)  return null;
+            if (watchedTags.Length > 0 && !watchedTags.Contains(other.gameObject.tag)) return null;
+            if (!watchCollision && !watchTrigger)  return null;
             
             var collidingGo = other.gameObject;
 
