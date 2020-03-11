@@ -19,10 +19,11 @@ namespace Vrlife.Core
             _loading.loadingType = LoadingType.Infinite;
             _loading.percentText.gameObject.SetActive(false);
             loader = _loading.loader;
-            
+            loader.transform.localPosition = new Vector3(0f, -270f, 0f);
+            loader.gameObject.GetComponent<Image>().color = Color.black;
+
+
             videoPlayer.prepareCompleted += DisableLoader;
-            videoPlayer.Prepare();
-            
         }
 
         private void Update()
