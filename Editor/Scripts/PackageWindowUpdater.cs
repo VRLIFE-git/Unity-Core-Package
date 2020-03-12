@@ -1,49 +1,65 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using Newtonsoft.Json;
 using UnityEngine;
 using UnityEditor;
-using UnityEditor.Experimental;
-using UnityEditor.PackageManager.UI;
 
 namespace Vrlife.Core.Editor
 {
-    [Serializable]
-    public class DependencyJson
+    public class GuiHorizontalHelpers : IDisposable
     {
-        public Dictionary<string, string> dependencies;
-        public Dictionary<string, LockedPackage> @lock;
+        public GuiHorizontalHelpers()
+        {
+            EditorGUILayout.BeginHorizontal();
+        }
+        public void Dispose()
+        {
+            EditorGUILayout.EndHorizontal();
+        }
     }
 
-    [Serializable]
-    public class LockedPackage
+    public static class EditorWindowHelpers
     {
-        public string revision;
-        public string hash;
-    }
+        public static GuiHorizontalHelpers Horizontal(this EditorWindow window)
+        {
+            return new GuiHorizontalHelpers();
+        }
 
+        public static bool Button(this EditorWindow window, string name, params GUILayoutOption[] options)
+        {
+            return GUILayout.Button(name, options);
+        }
+        
+        public static void Label(this EditorWindow window, string name, params GUILayoutOption[] options)
+        {
+             GUILayout.Label(name, options);
+        }
+    }
+    
     public class PackageWindowUpdater : EditorWindow
     {
-        string myString = "Hello World";
-        bool groupEnabled;
-        bool myBool = true;
-        float myFloat = 1.23f;
-
+       
         // Add menu item named "My Window" to the Window menu
-        [MenuItem("Window/My Window")]
+        [MenuItem("Window/VRLIFE - Package updater")]
         public static void ShowWindow()
         {
             //Show existing window instance. If one doesn't exist, make one.
-            EditorWindow.GetWindow(typeof(PackageWindowUpdater));
+            GetWindow(typeof(PackageWindowUpdater), true, "VRLIFE - Package Updater", true);
+        }
+
+        private void OnEnable()
+        {
+            this.minSize = new Vector2(300, 300);
+            this.maxSize = new Vector2(300, 300);
         }
 
         void OnGUI()
         {
+        
+            
             var path = Path.Combine(Application.dataPath, "../Packages/manifest.json");
-
-            Debug.Log(File.Exists(path));
+            GUILayout.Label("Packages in " + path);
+            EditorGUILayout.Separator();
 
             var text = File.ReadAllText(path);
 
@@ -51,17 +67,21 @@ namespace Vrlife.Core.Editor
             
             foreach (var keyValuePair in obj.@lock)
             {
-                GUILayout.BeginHorizontal();
-                GUILayout.Label(keyValuePair.Key);
-                if (GUILayout.Button("Import"))
+                using (this.Horizontal())
                 {
-                    obj.@lock.Remove(keyValuePair.Key);
-                    var manifest = JsonConvert.SerializeObject(obj, Formatting.Indented);
+                    this.Label(keyValuePair.Key);
                     
-                    File.WriteAllText(path, manifest);
-                    break;
+                    if (this.Button("Import", GUILayout.Width(50)))
+                    {
+                        obj.@lock.Remove(keyValuePair.Key);
+                        var manifest = JsonConvert.SerializeObject(obj, Formatting.Indented);
+                    
+                        File.WriteAllText(path, manifest);
+                        AssetDatabase.Refresh();
+                        break;
+                    }
                 }
-                GUILayout.EndHorizontal();
+                
             }
         }
     }
