@@ -11,11 +11,4 @@ namespace Vrlife.Core.Mvc.Implementations
 
         public IRendererComponent RendererComponent => renderer;
     }
-
-    public enum ViewModelUpdateStrategy
-    {
-        OnDemand,
-        OnUpdate,
-        WhenDirty
-    }
 }

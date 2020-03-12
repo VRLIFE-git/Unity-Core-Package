@@ -5,7 +5,7 @@ using Zenject;
 namespace Vrlife.Core.Mvc.Implementations
 {
     public abstract class MonoControllerProxy<TView, TController> : MonoBehaviour
-        where TController : IController< TView>
+        where TController : class, IController<TView>
     {
         protected abstract TView View { get; }
 
@@ -25,6 +25,11 @@ namespace Vrlife.Core.Mvc.Implementations
         [Inject]
         private void Ctor(TController controller)
         {
+            if (controller == this as TController)
+            {
+                throw new StackOverflowException("Don't bind '" + nameof(TController) +" to self! Implement IController<"+nameof(TView) + "> and bind it instead.");
+            }
+            
             Controller = controller;
 
             BindView(View);

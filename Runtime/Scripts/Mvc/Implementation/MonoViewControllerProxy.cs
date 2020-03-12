@@ -11,15 +11,15 @@ namespace Vrlife.Core.Mvc.Implementations
 
     public abstract class
         MonoViewControllerProxy<TViewModel, TView, TController> : MonoControllerProxy<TView, TController>
-        where TController : IController<TView> where TViewModel : class
+        where TController : class, IController<TView> where TViewModel : class
     {
-        [SerializeField] protected ViewModelUpdateStrategy updateStrategy;
-        
-        [SerializeField] protected TViewModel initialModel;
-
         private IDirtyModel _dirtyModel;
 
-        protected IViewProcessor<TViewModel, TView, TController> Processor { get; private set; }
+        [SerializeField] protected ViewModelUpdateStrategy updateStrategy;
+
+        [SerializeField] protected TViewModel viewModel;
+
+        private IViewProcessor<TViewModel, TView, TController> Processor { get; set; }
 
         [Inject]
         private void Ctor(IViewProcessor<TViewModel, TView, TController> processor)
@@ -27,20 +27,6 @@ namespace Vrlife.Core.Mvc.Implementations
             Processor = processor;
         }
 
-        public void ProcessModel(TViewModel viewModel)
-        {
-            if (initialModel != viewModel)
-            {
-                initialModel = viewModel;
-
-                _dirtyModel = initialModel as IDirtyModel;
-
-                if (_dirtyModel != null)
-                    _dirtyModel.IsDirty = true;
-
-            }
-            Processor.ProcessModel(initialModel, Controller);
-        }
 
         protected override void OnStarted()
         {
@@ -54,7 +40,14 @@ namespace Vrlife.Core.Mvc.Implementations
                 if (updateStrategy == ViewModelUpdateStrategy.OnUpdate ||
                     (_dirtyModel != null && _dirtyModel.IsDirty && updateStrategy == ViewModelUpdateStrategy.WhenDirty))
                 {
-                    ApplyViewModel();
+                    if (updateStrategy == ViewModelUpdateStrategy.WhenDirty && _dirtyModel == null)
+                    {
+                        Debug.Log("View model doesn't implement interface " + nameof(IDirtyModel));
+                    }
+                    else
+                    {
+                        ApplyViewModel();
+                    }
                 }
             }
 
@@ -63,7 +56,12 @@ namespace Vrlife.Core.Mvc.Implementations
 
         public void ApplyViewModel()
         {
-            ProcessModel(initialModel);
+            _dirtyModel = viewModel as IDirtyModel;
+
+            if (_dirtyModel != null)
+                _dirtyModel.IsDirty = true;
+
+            Processor.ProcessModel(viewModel, Controller);
         }
 
         protected virtual void OnUpdated()
