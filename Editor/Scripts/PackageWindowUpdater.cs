@@ -5,6 +5,8 @@ using System.Linq;
 using Newtonsoft.Json;
 using UnityEngine;
 using UnityEditor;
+using UnityEditor.Experimental;
+using UnityEditor.PackageManager.UI;
 
 namespace Vrlife.Core.Editor
 {
@@ -12,8 +14,15 @@ namespace Vrlife.Core.Editor
     public class DependencyJson
     {
         public Dictionary<string, string> dependencies;
+        public Dictionary<string, LockedPackage> @lock;
     }
 
+    [Serializable]
+    public class LockedPackage
+    {
+        public string revision;
+        public string hash;
+    }
 
     public class PackageWindowUpdater : EditorWindow
     {
@@ -40,15 +49,17 @@ namespace Vrlife.Core.Editor
 
             var obj = JsonConvert.DeserializeObject<DependencyJson>(text);
             
-            var vrlPackages = obj.dependencies.Where(x => x.Key.StartsWith("com.vrlife"));
-
-            foreach (var keyValuePair in vrlPackages)
+            
+            foreach (var keyValuePair in obj.@lock)
             {
                 GUILayout.BeginHorizontal();
                 GUILayout.Label(keyValuePair.Key);
                 if (GUILayout.Button("Import"))
                 {
-                    AssetDatabase.ImportPackage(keyValuePair.Value, false);
+                    obj.@lock.Remove(keyValuePair.Key);
+                    var manifest = JsonConvert.SerializeObject(obj);
+                    
+                    File.WriteAllText(path, manifest);
                 }
                 GUILayout.EndHorizontal();
             }
