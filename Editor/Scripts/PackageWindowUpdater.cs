@@ -49,7 +49,6 @@ namespace Vrlife.Core.Editor
 
             var obj = JsonConvert.DeserializeObject<DependencyJson>(text);
             
-            
             foreach (var keyValuePair in obj.@lock)
             {
                 GUILayout.BeginHorizontal();
@@ -57,9 +56,10 @@ namespace Vrlife.Core.Editor
                 if (GUILayout.Button("Import"))
                 {
                     obj.@lock.Remove(keyValuePair.Key);
-                    var manifest = JsonConvert.SerializeObject(obj);
+                    var manifest = JsonConvert.SerializeObject(obj, Formatting.Indented);
                     
                     File.WriteAllText(path, manifest);
+                    break;
                 }
                 GUILayout.EndHorizontal();
             }
