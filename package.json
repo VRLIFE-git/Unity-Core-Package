@@ -2,7 +2,8 @@
   "name": "com.vrlife.core",
   "version": "0.1.8",
   "displayName": "VRL - Core Package",
-  "description": "VRLIFE Core package, with essential functions.",
+  "description": "VRLIFE Core package, with essential functions. 
+  https://github.com/VRLIFE-git/Unity-Core-Package.git",
   "dependencies": {   
  },
  "keywords": [
