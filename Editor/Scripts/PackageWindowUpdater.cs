@@ -58,12 +58,24 @@ namespace Vrlife.Core.Editor
         
             
             var path = Path.Combine(Application.dataPath, "../Packages/manifest.json");
-            GUILayout.Label("Packages in " + path);
+            GUILayout.Label("Packages in ../Packages/manifest.json");
             EditorGUILayout.Separator();
 
+            if (!File.Exists(path))
+            {
+                EditorGUILayout.HelpBox("Manifest " + "../Packages/manifest.json was not found", MessageType.Warning);
+                return;
+            }
             var text = File.ReadAllText(path);
-
+            
             var obj = JsonConvert.DeserializeObject<DependencyJson>(text);
+
+            if (obj.@lock == null)
+            {
+                EditorGUILayout.HelpBox("No locked packages from github are in project.", MessageType.Warning);
+
+                return;
+            }
             
             foreach (var keyValuePair in obj.@lock)
             {
