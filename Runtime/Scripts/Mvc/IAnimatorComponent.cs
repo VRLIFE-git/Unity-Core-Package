@@ -11,5 +11,7 @@
         bool GetBoolParameter(int id);
         int GetIntParameter(int id);
         float GetFloatParameter(int id);
+
+        void PlayState(string stateName);
     }
 }

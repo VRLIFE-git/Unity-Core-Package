@@ -47,5 +47,10 @@ namespace Vrlife.Core.Mvc.Implementations
         {
             return _animator.GetFloat(id);
         }
+
+        public void PlayState(string stateName)
+        {
+            _animator.Play(stateName);
+        }
     }
 }
