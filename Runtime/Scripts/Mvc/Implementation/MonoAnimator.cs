@@ -18,6 +18,11 @@ namespace Vrlife.Core.Mvc.Implementations
             _animator.SetTrigger(id);
         }
 
+        public void SetSpeed(float value)
+        {
+            _animator.speed = value;
+        }
+
         public void ResetTrigger(int id)
         {
             _animator.ResetTrigger(id);
