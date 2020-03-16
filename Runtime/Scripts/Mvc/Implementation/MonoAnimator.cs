@@ -13,6 +13,16 @@ namespace Vrlife.Core.Mvc.Implementations
             _animator = GetComponent<Animator>();
         }
 
+        public void SetTrigger(int id)
+        {
+            _animator.SetTrigger(id);
+        }
+
+        public void ResetTrigger(int id)
+        {
+            _animator.ResetTrigger(id);
+        }
+        
         public void SetLayerWeight(int layerId, float value)
         {
             _animator.SetLayerWeight(layerId, value);
