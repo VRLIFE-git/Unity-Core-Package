@@ -1,7 +1,11 @@
-﻿namespace Vrlife.Core.Mvc
+﻿using System;
+using Vrlife.Core.Mvc.Implementations;
+
+namespace Vrlife.Core.Mvc
 {
     public interface IAnimatorComponent : IViewComponent
     {
+        event EventHandler<MonoAnimatorStateEventHandler> StateChanged; 
         void SetLayerWeight(int layerId, float value);
         void SetTrigger(int id);
         void ResetTrigger(int id);
@@ -19,5 +23,7 @@
         float GetLayerWeight(int layerId);
 
         string GetLayerName(int layerId);
+        
+        
     }
 }

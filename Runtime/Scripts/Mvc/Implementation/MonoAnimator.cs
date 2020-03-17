@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using Vrlife.Core.Mvc.Abstractions;
 
 namespace Vrlife.Core.Mvc.Implementations
@@ -27,6 +28,8 @@ namespace Vrlife.Core.Mvc.Implementations
         {
             _animator.ResetTrigger(id);
         }
+
+        public event EventHandler<MonoAnimatorStateEventHandler> StateChanged;
 
         public void SetLayerWeight(int layerId, float value)
         {
@@ -81,6 +84,15 @@ namespace Vrlife.Core.Mvc.Implementations
         public string GetLayerName(int layerId)
         {
             return _animator.GetLayerName(layerId);
+        }
+
+        public void InvokeStateChanged(AnimatorStateInfo stateInfo, int layerIndex)
+        {
+            StateChanged?.Invoke(this, new MonoAnimatorStateEventHandler
+            {
+                LayerIndex = layerIndex,
+                AnimatorStateInfo = stateInfo
+            });
         }
     }
 }
