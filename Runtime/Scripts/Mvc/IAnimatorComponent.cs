@@ -5,7 +5,8 @@ namespace Vrlife.Core.Mvc
 {
     public interface IAnimatorComponent : IViewComponent
     {
-        event EventHandler<MonoAnimatorStateEventHandler> StateChanged; 
+        event EventHandler<MonoAnimatorStateEventHandler> StateExited; 
+        event EventHandler<MonoAnimatorStateEventHandler> StateEntered; 
         void SetLayerWeight(int layerId, float value);
         void SetTrigger(int id);
         void ResetTrigger(int id);

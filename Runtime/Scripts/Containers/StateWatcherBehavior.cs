@@ -18,10 +18,26 @@ namespace Vrlife.Core
             
             if (_monoAnimator)
             {
-                _monoAnimator.InvokeStateChanged(stateInfo, layerIndex);
+                _monoAnimator.InvokeStateExited(stateInfo, layerIndex);
             }
             
             base.OnStateExit(animator, stateInfo, layerIndex);
+        }
+
+        public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+        {
+            if (_animator != animator)
+            {
+                _animator = animator;
+                _monoAnimator = animator.GetComponent<MonoAnimator>();
+            }
+            
+            if (_monoAnimator)
+            {
+                _monoAnimator.InvokeStateEntered(stateInfo, layerIndex);
+            }
+            
+            base.OnStateEnter(animator, stateInfo, layerIndex);
         }
     }
 }

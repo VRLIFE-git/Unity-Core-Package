@@ -8,6 +8,8 @@ namespace Vrlife.Core.Mvc.Implementations
     public class MonoAnimator : AViewComponent, IAnimatorComponent
     {
         private Animator _animator;
+        public event EventHandler<MonoAnimatorStateEventHandler> StateExited;
+        public event EventHandler<MonoAnimatorStateEventHandler> StateEntered;
 
         protected override void OnAwoke()
         {
@@ -29,7 +31,6 @@ namespace Vrlife.Core.Mvc.Implementations
             _animator.ResetTrigger(id);
         }
 
-        public event EventHandler<MonoAnimatorStateEventHandler> StateChanged;
 
         public void SetLayerWeight(int layerId, float value)
         {
@@ -86,9 +87,18 @@ namespace Vrlife.Core.Mvc.Implementations
             return _animator.GetLayerName(layerId);
         }
 
-        public void InvokeStateChanged(AnimatorStateInfo stateInfo, int layerIndex)
+        public void InvokeStateExited(AnimatorStateInfo stateInfo, int layerIndex)
         {
-            StateChanged?.Invoke(this, new MonoAnimatorStateEventHandler
+            StateExited?.Invoke(this, new MonoAnimatorStateEventHandler
+            {
+                LayerIndex = layerIndex,
+                AnimatorStateInfo = stateInfo
+            });
+        }
+
+        public void InvokeStateEntered(AnimatorStateInfo stateInfo, int layerIndex)
+        {
+            StateEntered?.Invoke(this, new MonoAnimatorStateEventHandler
             {
                 LayerIndex = layerIndex,
                 AnimatorStateInfo = stateInfo
