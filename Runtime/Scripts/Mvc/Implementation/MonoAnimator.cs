@@ -27,7 +27,7 @@ namespace Vrlife.Core.Mvc.Implementations
         {
             _animator.ResetTrigger(id);
         }
-        
+
         public void SetLayerWeight(int layerId, float value)
         {
             _animator.SetLayerWeight(layerId, value);
@@ -75,7 +75,6 @@ namespace Vrlife.Core.Mvc.Implementations
 
         public float GetLayerWeight(int layerId)
         {
-            
             return _animator.GetLayerWeight(layerId);
         }
 
