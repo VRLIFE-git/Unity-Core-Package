@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Vrlife.Core
 {
     [Serializable]
-    public class ScreenPlaysPlaceholder : ScriptableObject
+    public class ScreenPlaysPlaceholder 
     {
         public ScreenPlay screenPlay;
         public ActorScreenPlayLine[] lines;
