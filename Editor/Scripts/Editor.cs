@@ -7,7 +7,7 @@ namespace Vrlife.Core.Editor
     {
         protected TType Target { get; private set; }
 
-        private void OnEnable()
+        protected virtual void OnEnable()
         {
             Target = target as TType;
         }
@@ -22,5 +22,4 @@ namespace Vrlife.Core.Editor
             return new GUILayout.VerticalScope();
         }
     }
-    
 }

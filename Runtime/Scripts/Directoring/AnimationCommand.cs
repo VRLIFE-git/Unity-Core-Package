@@ -5,6 +5,7 @@ using UnityEngine;
 
 namespace Vrlife.Core
 {
+
     [Serializable]
     public class AnimationCommand : Command
     {

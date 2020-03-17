@@ -27,6 +27,7 @@ namespace Vrlife.Core
                 _commandBuffer.Dispose();
                 _commandBuffer = null;
                 OnBufferCompleted();
+                return;
             }
 
             _commandBuffer.RefreshBuffer(Time.deltaTime);

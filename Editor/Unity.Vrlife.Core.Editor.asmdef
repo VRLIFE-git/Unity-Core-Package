@@ -1,6 +1,8 @@
 {
     "name": "Vrlife.Core.Editor",
-    "references": [],
+    "references": [
+        "GUID:23637f99ceb96f64798121aa1853478d"
+    ],
     "includePlatforms": [
         "Editor"
     ],
