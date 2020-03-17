@@ -22,7 +22,8 @@ namespace Vrlife.Core
 
             foreach (var command in _commands)
             {
-                completed &= command.IsComplete;
+                if (!command.IsComplete)
+                    completed = false;
 
                 if (command.IsComplete)
                     continue;
