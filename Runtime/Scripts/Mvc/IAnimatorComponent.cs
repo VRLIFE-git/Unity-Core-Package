@@ -14,5 +14,10 @@
         float GetFloatParameter(int id);
         void SetSpeed(float value);
         void PlayState(string stateName);
+
+        int GetLayerIndex(string layerName);
+        float GetLayerWeight(int layerId);
+
+        string GetLayerName(int layerId);
     }
 }

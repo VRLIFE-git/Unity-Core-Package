@@ -67,5 +67,21 @@ namespace Vrlife.Core.Mvc.Implementations
         {
             _animator.Play(stateName);
         }
+
+        public int GetLayerIndex(string layerName)
+        {
+            return _animator.GetLayerIndex(layerName);
+        }
+
+        public float GetLayerWeight(int layerId)
+        {
+            
+            return _animator.GetLayerWeight(layerId);
+        }
+
+        public string GetLayerName(int layerId)
+        {
+            return _animator.GetLayerName(layerId);
+        }
     }
 }
