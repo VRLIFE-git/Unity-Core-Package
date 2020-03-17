@@ -1,5 +1,8 @@
-﻿namespace Vrlife.Core
+﻿using System;
+
+namespace Vrlife.Core
 {
+    [Serializable]
     public abstract class Command
     {
         public float Lifetime { get; set; }
