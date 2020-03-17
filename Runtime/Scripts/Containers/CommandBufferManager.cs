@@ -6,6 +6,8 @@ namespace Vrlife.Core
     {
         private ICommandBuffer _commandBuffer;
 
+
+        protected abstract void OnBufferCompleted();
         
         public void BufferCommands(params Command[] commands)
         {
@@ -17,8 +19,15 @@ namespace Vrlife.Core
 
         protected void UpdateCommandBuffer()
         {
-            if (_commandBuffer == null || _commandBuffer.IsCompleted)
+            if (_commandBuffer == null)
                 return;
+
+            if (_commandBuffer.IsCompleted)
+            {
+                _commandBuffer.Dispose();
+                _commandBuffer = null;
+                OnBufferCompleted();
+            }
 
             _commandBuffer.RefreshBuffer(Time.deltaTime);
         }
