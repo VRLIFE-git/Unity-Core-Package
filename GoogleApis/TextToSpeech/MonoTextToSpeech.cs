@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using Zenject;
 
-namespace Vrlife.Core
+namespace Vrlife.Core.GoogleApis.TextToSpeech
 {
     public class MonoTextToSpeech : MonoBehaviour
     {

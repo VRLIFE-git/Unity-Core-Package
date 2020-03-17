@@ -2,7 +2,7 @@
 using System.Collections;
 using UnityEngine;
 
-namespace Vrlife.Core
+namespace Vrlife.Core.GoogleApis.TextToSpeech
 {
     public interface IGoogleTextToSpeechService
     {
