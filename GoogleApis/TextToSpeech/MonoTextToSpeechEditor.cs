@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using Vrlife.Core.GoogleApis.TextToSpeech;
 
 namespace Vrlife.Core
 {

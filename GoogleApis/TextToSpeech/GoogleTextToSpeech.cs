@@ -6,7 +6,7 @@ using Newtonsoft.Json;
 using UnityEngine;
 using UnityEngine.Networking;
 
-namespace Vrlife.Core
+namespace Vrlife.Core.GoogleApis.TextToSpeech
 {
     public class GoogleTextToSpeechService : IGoogleTextToSpeechService
     {
