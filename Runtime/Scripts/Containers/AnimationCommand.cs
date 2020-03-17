@@ -17,5 +17,8 @@ namespace Vrlife.Core
         }
         
         public IEnumerable<int> WatchedStates { get; }
+        
+        public int EnumCode { get; set; }
+        
     }
 }
