@@ -4,7 +4,7 @@ using Vrlife.Core.Mvc.Abstractions;
 namespace Vrlife.Core.Mvc.Implementations
 {
     [RequireComponent(typeof(AudioSource))]
-    public class AudioSourceComponent : AViewComponent, IAudioSourceComponent
+    public class MonoAudioSourceComponent : AViewComponent, IAudioSourceComponent
     {
         [SerializeField] private AudioSource audioSource;
         protected override void OnAwoke()
