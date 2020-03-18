@@ -39,25 +39,56 @@ namespace Vrlife.Core.Mvc
                 animator = GetComponent<Animator>();
         }
 
-        public Transform LookAtTarget => lookAtTarget;
+        public Transform LookAtTarget
+        {
+            get => lookAtTarget;
+            set => lookAtTarget = value;
+        }
 
-        public Transform RightHandTarget => rightHandTarget;
+        public Transform RightHandTarget  {
+            get => rightHandTarget;
+            set => rightHandTarget = value;
+        }
 
-        public Transform LeftHandTarget => leftHandTarget;
+        public Transform LeftHandTarget  {
+            get => leftHandTarget;
+            set => leftHandTarget = value;
+        }
 
-        public Transform RightFootTarget => rightFootTarget;
+        public Transform RightFootTarget  {
+            get => rightFootTarget;
+            set => rightFootTarget = value;
+        }
 
-        public Transform LeftFootTarget => leftFootTarget;
+        public Transform LeftFootTarget {
+            get => leftFootTarget;
+            set => leftFootTarget = value;
+        }
 
-        public float RightFootIkWeight => rightFootIkWeight;
+        public float RightFootIkWeight {
+            get => rightFootIkWeight;
+            set => rightFootIkWeight = value;
+        }
 
-        public float LeftFootIkWeight => leftFootIkWeight;
+        public float LeftFootIkWeight  {
+            get => leftFootIkWeight;
+            set => leftFootIkWeight = value;
+        }
 
-        public float RightHandIkWeight => rightHandIkWeight;
+        public float RightHandIkWeight  {
+            get => rightHandIkWeight;
+            set => rightHandIkWeight = value;
+        }
 
-        public float LeftHandIkWeight => leftHandIkWeight;
+        public float LeftHandIkWeight  {
+            get => leftHandIkWeight;
+            set => leftHandIkWeight = value;
+        }
 
-        public float HeadLookAtWeight => headLookAtWeight;
+        public float HeadLookAtWeight  {
+            get => headLookAtWeight;
+            set => headLookAtWeight = value;
+        }
 
         private void OnAnimatorIK(int layerIndex)
         {
