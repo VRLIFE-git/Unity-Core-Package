@@ -112,4 +112,18 @@ namespace Vrlife.Core.Editor
             return -1;
         }
     }
+
+    [CustomEditor(typeof(ActorManager))]
+    public class ActorManagerEditor : Editor<ActorManager>
+    {
+
+        protected override void OnEnable()
+        {
+            base.OnEnable();
+        }
+
+        public override void OnInspectorGUI()
+        {
+        }
+    }
 }

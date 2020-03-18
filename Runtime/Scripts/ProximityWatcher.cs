@@ -16,6 +16,8 @@ namespace Vrlife.Core
     {
     }
 
+    
+    
     public class ProximityWatcher : AViewComponent, IDisposable
     {
         [Tooltip("If delegated object resides somewhere else in hierarchy.")]
@@ -23,7 +25,6 @@ namespace Vrlife.Core
         [SerializeField] private string[] watchedTags;
 
         private List<GameObject> _collidingObjects;
-
 
         public IReadOnlyList<GameObject> ProximityObjects => _collidingObjects;
 

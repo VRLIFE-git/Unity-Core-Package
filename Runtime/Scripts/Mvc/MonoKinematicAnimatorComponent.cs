@@ -1,33 +1,49 @@
 ﻿using UnityEngine;
+using Vrlife.Core.Mvc.Abstractions;
 
 namespace Vrlife.Core.Mvc
 {
     [RequireComponent(typeof(Animator))]
-    public class MonoKinematicAnimatorComponent : MonoBehaviour, IKinematicAnimatorComponent
+    public class MonoKinematicAnimatorComponent : AViewComponent, IKinematicAnimatorComponent
     {
         private Animator _animator;
-        
-        private void Start()
+
+        [SerializeField] private Transform lookAtTarget;
+        [SerializeField] private Transform rightHandTarget;
+        [SerializeField] private Transform leftHandTarget;
+        [SerializeField] private Transform rightFootTarget;
+        [SerializeField] private Transform leftFootTarget;
+        [SerializeField] private float rightFootIkWeight;
+        [SerializeField] private float leftFootIkWeight;
+        [SerializeField] private float rightHandIkWeight;
+        [SerializeField] private float leftHandIkWeight;
+        [SerializeField] private float headLookAtWeight;
+
+
+        protected override void OnStarted()
         {
             _animator = GetComponent<Animator>();
         }
-        public Transform LookAtTarget { get; set; }
-        public Transform RightHandTarget { get; set; }
-        public Transform LeftHandTarget { get; set; }
-        public Transform RightFootTarget { get; set; }
-        public Transform LeftFootTarget { get; set; }
-        public float RightFootIkWeight { get; set; }
-        public float LeftFootIkWeight { get; set; }
-        public float RightHandIkWeight { get; set; }
-        public float LeftHandIkWeight { get; set; }
-        public float HeadLookAtWeight { get; set; }
-        
-        public void SetEnabled(bool value)
-        {
-            IsEnabled = value;
-        }
 
-        public bool IsEnabled { get; private set; }
+        public Transform LookAtTarget => lookAtTarget;
+
+        public Transform RightHandTarget => rightHandTarget;
+
+        public Transform LeftHandTarget => leftHandTarget;
+
+        public Transform RightFootTarget => rightFootTarget;
+
+        public Transform LeftFootTarget => leftFootTarget;
+
+        public float RightFootIkWeight => rightFootIkWeight;
+
+        public float LeftFootIkWeight => leftFootIkWeight;
+
+        public float RightHandIkWeight => rightHandIkWeight;
+
+        public float LeftHandIkWeight => leftHandIkWeight;
+
+        public float HeadLookAtWeight => headLookAtWeight;
 
         private void OnAnimatorIK(int layerIndex)
         {
@@ -59,7 +75,7 @@ namespace Vrlife.Core.Mvc
                         _animator.SetIKPosition(AvatarIKGoal.LeftHand, LeftHandTarget.position);
                         _animator.SetIKRotation(AvatarIKGoal.LeftHand, LeftHandTarget.rotation);
                     }
-                    
+
                     if (RightFootTarget != null)
                     {
                         _animator.SetIKPositionWeight(AvatarIKGoal.RightFoot, RightFootIkWeight);
@@ -67,7 +83,7 @@ namespace Vrlife.Core.Mvc
                         _animator.SetIKPosition(AvatarIKGoal.RightFoot, RightFootTarget.position);
                         _animator.SetIKRotation(AvatarIKGoal.RightFoot, RightFootTarget.rotation);
                     }
-                    
+
                     if (LeftFootTarget != null)
                     {
                         _animator.SetIKPositionWeight(AvatarIKGoal.LeftFoot, LeftFootIkWeight);
@@ -75,8 +91,6 @@ namespace Vrlife.Core.Mvc
                         _animator.SetIKPosition(AvatarIKGoal.LeftFoot, LeftFootTarget.position);
                         _animator.SetIKRotation(AvatarIKGoal.LeftFoot, LeftFootTarget.rotation);
                     }
-                    
-                    
                 }
                 //if the IK is not active, set the position and rotation of the hand and head back to the original position
                 else
@@ -87,6 +101,5 @@ namespace Vrlife.Core.Mvc
                 }
             }
         }
-
     }
 }
