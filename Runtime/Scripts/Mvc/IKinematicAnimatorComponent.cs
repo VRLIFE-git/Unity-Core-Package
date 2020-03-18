@@ -4,23 +4,23 @@ namespace Vrlife.Core.Mvc
 {
     public interface IKinematicAnimatorComponent : IViewComponent
     {
-        Transform LookAtTarget { get; }
+        Transform LookAtTarget { get; set; }
 
-        Transform RightHandTarget { get; }
+        Transform RightHandTarget { get; set; }
+        
+        Transform LeftHandTarget { get; set; }
+        
+        Transform RightFootTarget { get; set; }
+        
+        Transform LeftFootTarget { get; set; }
 
-        Transform LeftHandTarget { get; }
+        float RightFootIkWeight { get; set; }
+        
+        float LeftFootIkWeight { get; set; }
+        float RightHandIkWeight { get; set; }
 
-        Transform RightFootTarget { get; }
+        float LeftHandIkWeight { get; set; }
 
-        Transform LeftFootTarget { get; }
-
-        float RightFootIkWeight { get; }
-
-        float LeftFootIkWeight { get; }
-        float RightHandIkWeight { get; }
-
-        float LeftHandIkWeight { get; }
-
-        float HeadLookAtWeight { get; }
+        float HeadLookAtWeight { get; set; }
     }
 }
