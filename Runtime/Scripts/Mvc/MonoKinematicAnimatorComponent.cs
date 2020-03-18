@@ -4,38 +4,33 @@ using Vrlife.Core.Mvc.Abstractions;
 
 namespace Vrlife.Core.Mvc
 {
-    [RequireComponent(typeof(Animator))]
     public class MonoKinematicAnimatorComponent : AViewComponent, IKinematicAnimatorComponent
     {
         private Animator _animator;
 
         public static readonly string LookAtName = nameof(lookAtTarget);
-        
+
         [SerializeField] private Transform lookAtTarget;
         [SerializeField] private Transform rightHandTarget;
         [SerializeField] private Transform leftHandTarget;
         [SerializeField] private Transform rightFootTarget;
         [SerializeField] private Transform leftFootTarget;
-        
-        [Range(0,1)]
-        [SerializeField] private float rightFootIkWeight;
 
-        [Range(0,1)]
-        [SerializeField] private float leftFootIkWeight;
-        
-        [Range(0,1)]
-        [SerializeField] private float rightHandIkWeight;
-        
-        [Range(0,1)]
-        [SerializeField] private float leftHandIkWeight;
-        
-        [Range(0,1)]
-        [SerializeField] private float headLookAtWeight;
+        [Range(0, 1)] [SerializeField] private float rightFootIkWeight;
+
+        [Range(0, 1)] [SerializeField] private float leftFootIkWeight;
+
+        [Range(0, 1)] [SerializeField] private float rightHandIkWeight;
+
+        [Range(0, 1)] [SerializeField] private float leftHandIkWeight;
+
+        [Range(0, 1)] [SerializeField] private float headLookAtWeight;
 
 
         protected override void OnStarted()
         {
-            _animator = GetComponent<Animator>();
+            if (!_animator)
+                _animator = GetComponent<Animator>();
         }
 
         public Transform LookAtTarget => lookAtTarget;
@@ -119,10 +114,10 @@ namespace Vrlife.Core.Mvc
         {
             DrawHandleGizmo(leftHandTarget, Color.red);
             DrawHandleGizmo(leftFootTarget, Color.red);
-            
+
             DrawHandleGizmo(rightHandTarget, Color.blue);
             DrawHandleGizmo(rightFootTarget, Color.blue);
-            
+
             DrawHandleGizmo(lookAtTarget, Color.green);
         }
 
@@ -134,9 +129,9 @@ namespace Vrlife.Core.Mvc
 
             Gizmos.DrawSphere(handle.position, .2f);
 
-            DrawLine(handle.position - handle.forward/2, handle.position + handle.forward, Color.blue);
-            DrawLine(handle.position - handle.right/2, handle.position + handle.right, Color.red);
-            DrawLine(handle.position - handle.up/2, handle.position + handle.up, Color.green);
+            DrawLine(handle.position - handle.forward / 2, handle.position + handle.forward, Color.blue);
+            DrawLine(handle.position - handle.right / 2, handle.position + handle.right, Color.red);
+            DrawLine(handle.position - handle.up / 2, handle.position + handle.up, Color.green);
         }
 
         private static void DrawLine(Vector3 from, Vector3 to, Color color)
