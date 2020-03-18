@@ -6,9 +6,15 @@ namespace Vrlife.Core.Mvc
 {
     public class MonoKinematicAnimatorComponent : AViewComponent, IKinematicAnimatorComponent
     {
-        private Animator _animator;
-
+        [SerializeField] private Animator animator;
+        [SerializeField] private bool drawGizmos;
+        
         public static readonly string LookAtName = nameof(lookAtTarget);
+        public static readonly string DrawGizmosName = nameof(drawGizmos);
+        public static readonly string RightHandTargetName = nameof(rightHandTarget);
+        public static readonly string RightFootTargetName = nameof(rightFootTarget);
+        public static readonly string LeftHandTargetName = nameof(leftHandTarget);
+        public static readonly string LeftFootTargetName = nameof(leftFootTarget);
 
         [SerializeField] private Transform lookAtTarget;
         [SerializeField] private Transform rightHandTarget;
@@ -29,8 +35,8 @@ namespace Vrlife.Core.Mvc
 
         protected override void OnStarted()
         {
-            if (!_animator)
-                _animator = GetComponent<Animator>();
+            if (!animator)
+                animator = GetComponent<Animator>();
         }
 
         public Transform LookAtTarget => lookAtTarget;
@@ -55,7 +61,7 @@ namespace Vrlife.Core.Mvc
 
         private void OnAnimatorIK(int layerIndex)
         {
-            if (_animator)
+            if (animator)
             {
                 //if the IK is active, set the position and rotation directly to the goal. 
                 if (IsEnabled)
@@ -63,55 +69,57 @@ namespace Vrlife.Core.Mvc
                     // Set the look target position, if one has been assigned
                     if (LookAtTarget != null)
                     {
-                        _animator.SetLookAtWeight(HeadLookAtWeight);
-                        _animator.SetLookAtPosition(LookAtTarget.position);
+                        animator.SetLookAtWeight(HeadLookAtWeight);
+                        animator.SetLookAtPosition(LookAtTarget.position);
                     }
 
                     // Set the hands and foot target position and rotation, if one has been assigned
                     if (RightHandTarget != null)
                     {
-                        _animator.SetIKPositionWeight(AvatarIKGoal.RightHand, RightHandIkWeight);
-                        _animator.SetIKRotationWeight(AvatarIKGoal.RightHand, RightHandIkWeight);
-                        _animator.SetIKPosition(AvatarIKGoal.RightHand, RightHandTarget.position);
-                        _animator.SetIKRotation(AvatarIKGoal.RightHand, RightHandTarget.rotation);
+                        animator.SetIKPositionWeight(AvatarIKGoal.RightHand, RightHandIkWeight);
+                        animator.SetIKRotationWeight(AvatarIKGoal.RightHand, RightHandIkWeight);
+                        animator.SetIKPosition(AvatarIKGoal.RightHand, RightHandTarget.position);
+                        animator.SetIKRotation(AvatarIKGoal.RightHand, RightHandTarget.rotation);
                     }
 
                     if (LeftHandTarget != null)
                     {
-                        _animator.SetIKPositionWeight(AvatarIKGoal.LeftHand, LeftHandIkWeight);
-                        _animator.SetIKRotationWeight(AvatarIKGoal.LeftHand, LeftHandIkWeight);
-                        _animator.SetIKPosition(AvatarIKGoal.LeftHand, LeftHandTarget.position);
-                        _animator.SetIKRotation(AvatarIKGoal.LeftHand, LeftHandTarget.rotation);
+                        animator.SetIKPositionWeight(AvatarIKGoal.LeftHand, LeftHandIkWeight);
+                        animator.SetIKRotationWeight(AvatarIKGoal.LeftHand, LeftHandIkWeight);
+                        animator.SetIKPosition(AvatarIKGoal.LeftHand, LeftHandTarget.position);
+                        animator.SetIKRotation(AvatarIKGoal.LeftHand, LeftHandTarget.rotation);
                     }
 
                     if (RightFootTarget != null)
                     {
-                        _animator.SetIKPositionWeight(AvatarIKGoal.RightFoot, RightFootIkWeight);
-                        _animator.SetIKRotationWeight(AvatarIKGoal.RightFoot, RightFootIkWeight);
-                        _animator.SetIKPosition(AvatarIKGoal.RightFoot, RightFootTarget.position);
-                        _animator.SetIKRotation(AvatarIKGoal.RightFoot, RightFootTarget.rotation);
+                        animator.SetIKPositionWeight(AvatarIKGoal.RightFoot, RightFootIkWeight);
+                        animator.SetIKRotationWeight(AvatarIKGoal.RightFoot, RightFootIkWeight);
+                        animator.SetIKPosition(AvatarIKGoal.RightFoot, RightFootTarget.position);
+                        animator.SetIKRotation(AvatarIKGoal.RightFoot, RightFootTarget.rotation);
                     }
 
                     if (LeftFootTarget != null)
                     {
-                        _animator.SetIKPositionWeight(AvatarIKGoal.LeftFoot, LeftFootIkWeight);
-                        _animator.SetIKRotationWeight(AvatarIKGoal.LeftFoot, LeftFootIkWeight);
-                        _animator.SetIKPosition(AvatarIKGoal.LeftFoot, LeftFootTarget.position);
-                        _animator.SetIKRotation(AvatarIKGoal.LeftFoot, LeftFootTarget.rotation);
+                        animator.SetIKPositionWeight(AvatarIKGoal.LeftFoot, LeftFootIkWeight);
+                        animator.SetIKRotationWeight(AvatarIKGoal.LeftFoot, LeftFootIkWeight);
+                        animator.SetIKPosition(AvatarIKGoal.LeftFoot, LeftFootTarget.position);
+                        animator.SetIKRotation(AvatarIKGoal.LeftFoot, LeftFootTarget.rotation);
                     }
                 }
                 //if the IK is not active, set the position and rotation of the hand and head back to the original position
                 else
                 {
-                    _animator.SetIKPositionWeight(AvatarIKGoal.RightHand, 0);
-                    _animator.SetIKRotationWeight(AvatarIKGoal.RightHand, 0);
-                    _animator.SetLookAtWeight(0);
+                    animator.SetIKPositionWeight(AvatarIKGoal.RightHand, 0);
+                    animator.SetIKRotationWeight(AvatarIKGoal.RightHand, 0);
+                    animator.SetLookAtWeight(0);
                 }
             }
         }
 
         private void OnDrawGizmos()
         {
+            if(!drawGizmos) return;
+
             DrawHandleGizmo(leftHandTarget, Color.red);
             DrawHandleGizmo(leftFootTarget, Color.red);
 
