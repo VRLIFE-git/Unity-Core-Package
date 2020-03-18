@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using Vrlife.Core.Mvc.Abstractions;
 
 namespace Vrlife.Core.Mvc
@@ -8,15 +9,27 @@ namespace Vrlife.Core.Mvc
     {
         private Animator _animator;
 
+        public static readonly string LookAtName = nameof(lookAtTarget);
+        
         [SerializeField] private Transform lookAtTarget;
         [SerializeField] private Transform rightHandTarget;
         [SerializeField] private Transform leftHandTarget;
         [SerializeField] private Transform rightFootTarget;
         [SerializeField] private Transform leftFootTarget;
+        
+        [Range(0,1)]
         [SerializeField] private float rightFootIkWeight;
+
+        [Range(0,1)]
         [SerializeField] private float leftFootIkWeight;
+        
+        [Range(0,1)]
         [SerializeField] private float rightHandIkWeight;
+        
+        [Range(0,1)]
         [SerializeField] private float leftHandIkWeight;
+        
+        [Range(0,1)]
         [SerializeField] private float headLookAtWeight;
 
 
@@ -100,6 +113,40 @@ namespace Vrlife.Core.Mvc
                     _animator.SetLookAtWeight(0);
                 }
             }
+        }
+
+        private void OnDrawGizmos()
+        {
+            DrawHandleGizmo(leftHandTarget, Color.red);
+            DrawHandleGizmo(leftFootTarget, Color.red);
+            
+            DrawHandleGizmo(rightHandTarget, Color.blue);
+            DrawHandleGizmo(rightFootTarget, Color.blue);
+            
+            DrawHandleGizmo(lookAtTarget, Color.green);
+        }
+
+        private void DrawHandleGizmo(Transform handle, Color color)
+        {
+            if (!handle) return;
+
+            Gizmos.color = color;
+
+            Gizmos.DrawSphere(handle.position, .2f);
+
+            DrawLine(handle.position - handle.forward/2, handle.position + handle.forward, Color.blue);
+            DrawLine(handle.position - handle.right/2, handle.position + handle.right, Color.red);
+            DrawLine(handle.position - handle.up/2, handle.position + handle.up, Color.green);
+        }
+
+        private static void DrawLine(Vector3 from, Vector3 to, Color color)
+        {
+            Gizmos.color = color;
+
+            var blueA = from;
+            var blueB = to;
+
+            Gizmos.DrawLine(blueA, blueB);
         }
     }
 }
