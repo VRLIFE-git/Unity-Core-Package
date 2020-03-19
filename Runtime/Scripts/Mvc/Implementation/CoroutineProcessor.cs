@@ -5,49 +5,6 @@ using UnityEngine;
 
 namespace Vrlife.Core.Mvc.Implementations
 {
-    public static class CoroutineProcessorHelpers
-    {
-        public static CoroutineBuilder Build(this ICoroutineProcessor processor, IEnumerator logic)
-        {
-            var result = new CoroutineBuilder(processor);
-
-            result.Then(logic);
-
-            return result;
-        } 
-        
-        public static CoroutineBuilder Build(this ICoroutineProcessor processor, Action logic)
-        {
-            var result = new CoroutineBuilder(processor);
-
-            result.Then(logic);
-
-            return result;
-        }
-    }
-
-    public class CoroutineCompletion : IEnumerator
-    {
-        private readonly Action _onComplete;
-
-        public CoroutineCompletion(Action onComplete)
-        {
-            _onComplete = onComplete;
-        }
-
-        public bool MoveNext()
-        {
-            _onComplete?.Invoke();
-            return false;
-        }
-
-        public void Reset()
-        {
-        }
-
-        public object Current => null;
-    }
-
     public class CoroutineProcessor : MonoBehaviour, ICoroutineProcessor, IDisposable
     {
         private IEnumerator CoroutineProcessing(IEnumerator logic, Action onCompleted)
@@ -86,10 +43,14 @@ namespace Vrlife.Core.Mvc.Implementations
             onCompleted?.Invoke();
         }
 
+        private void OnDestroy()
+        {
+            StopAllCoroutines();
+        }
 
         public void Dispose()
         {
-            StopAllCoroutines();
+            
         }
     }
 }
