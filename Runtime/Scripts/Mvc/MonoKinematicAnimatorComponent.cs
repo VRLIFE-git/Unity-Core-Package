@@ -142,6 +142,12 @@ namespace Vrlife.Core.Mvc
                 {
                     animator.SetIKPositionWeight(AvatarIKGoal.RightHand, 0);
                     animator.SetIKRotationWeight(AvatarIKGoal.RightHand, 0);
+                    animator.SetIKPositionWeight(AvatarIKGoal.LeftHand, 0);
+                    animator.SetIKRotationWeight(AvatarIKGoal.LeftHand, 0);
+                    animator.SetIKPositionWeight(AvatarIKGoal.RightFoot, 0);
+                    animator.SetIKRotationWeight(AvatarIKGoal.RightFoot, 0);
+                    animator.SetIKPositionWeight(AvatarIKGoal.LeftFoot, 0);
+                    animator.SetIKRotationWeight(AvatarIKGoal.LeftFoot, 0);
                     animator.SetLookAtWeight(0);
                 }
             }
