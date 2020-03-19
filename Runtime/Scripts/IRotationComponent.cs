@@ -14,5 +14,7 @@ namespace Vrlife.Core
         float AngleDiff { get; }
         
         float AngleDeadZone { get; set; }
+        
+        float AngleDiffPerc { get; }
     }
 }

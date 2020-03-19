@@ -32,6 +32,8 @@ namespace Vrlife.Core
             set => angleDeadZoneDeg = value;
         }
 
+        public float AngleDiffPerc => Mathf.Clamp01(AngleDiff / AngleDeadZone);
+
         public Transform Target
         {
             get => target;
