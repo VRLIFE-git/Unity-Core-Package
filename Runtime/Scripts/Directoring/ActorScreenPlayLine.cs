@@ -9,6 +9,7 @@ namespace Vrlife.Core
         public DialogLineEventHandler onLineExecute;
         public string text;
         public Transform walkTo;
+        public Transform lookAt;
         public string[] watchAnimationExit;
     }
 }
