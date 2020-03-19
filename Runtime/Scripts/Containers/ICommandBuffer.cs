@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Vrlife.Core
 {
@@ -7,5 +8,7 @@ namespace Vrlife.Core
         bool IsCompleted { get; }
 
         void RefreshBuffer(float deltaTime);
+        
+        IReadOnlyCollection<Command> Commands { get; }
     }
 }

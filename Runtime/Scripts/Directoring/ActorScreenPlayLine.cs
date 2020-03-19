@@ -10,6 +10,7 @@ namespace Vrlife.Core
         public string text;
         public Transform walkTo;
         public Transform lookAt;
+        public Transform pointAt;
         public string[] watchAnimationExit;
     }
 }

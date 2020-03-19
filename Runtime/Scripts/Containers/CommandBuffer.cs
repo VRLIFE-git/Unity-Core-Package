@@ -1,12 +1,16 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace Vrlife.Core
 {
     class CommandBuffer : ICommandBuffer
     {
         private List<Command> _commands;
+        
         private bool _disposed = false;
 
+        public IReadOnlyCollection<Command> Commands => _commands;
+        
         public CommandBuffer(IEnumerable<Command> commands)
         {
             _commands = new List<Command>(commands);
@@ -52,7 +56,14 @@ namespace Vrlife.Core
 
             _disposed = true;
 
+            foreach (var command in _commands.Where(x => !x.IsComplete))
+            {
+                command.Lifetime = 0;
+                command.IsComplete = true;
+            }
+
             IsCompleted = true;
+
             _commands.Clear();
 
             _commands = null;
