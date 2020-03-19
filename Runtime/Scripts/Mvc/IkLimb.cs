@@ -10,8 +10,10 @@ namespace Vrlife.Core.Mvc
 
         public Transform rotationTarget;
 
+        [Range(0,1)]
         public float positionWeight;
 
+        [Range(0,1)]
         public float rotationWeight;
 
         public AvatarIKGoal ikGoal;
