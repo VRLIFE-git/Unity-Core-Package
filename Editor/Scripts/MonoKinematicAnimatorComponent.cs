@@ -20,22 +20,22 @@ namespace Vrlife.Core.Editor
                 CreateHandleFor(MonoKinematicAnimatorComponent.LookAtName);
             }
 
-            if (Target.RightHandTarget)
+            if (Target.RightHand.positionTarget)
             {
                 CreateHandleFor(MonoKinematicAnimatorComponent.RightHandTargetName);
             }
             
-            if (Target.LeftHandTarget)
+            if (Target.LeftHand.positionTarget)
             {
                 CreateHandleFor(MonoKinematicAnimatorComponent.LeftHandTargetName);
             }
             
-            if (Target.RightFootTarget)
+            if (Target.RightFoot.positionTarget)
             {
                 CreateHandleFor(MonoKinematicAnimatorComponent.RightFootTargetName);
             }
             
-            if (Target.LeftFootTarget)
+            if (Target.LeftFoot.positionTarget)
             {
                 CreateHandleFor(MonoKinematicAnimatorComponent.LeftFootTargetName);
             }

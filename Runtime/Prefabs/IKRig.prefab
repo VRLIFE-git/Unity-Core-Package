@@ -158,16 +158,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55fb8519a3034008b9c61ca0ffafd5b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lookAtTarget: {fileID: 4190910811973481312}
-  rightHandTarget: {fileID: 4190910810597503008}
-  leftHandTarget: {fileID: 4190910810571894853}
-  rightFootTarget: {fileID: 4190910810638597730}
-  leftFootTarget: {fileID: 4190910812173752445}
-  rightFootIkWeight: 0
-  leftFootIkWeight: 0
-  rightHandIkWeight: 0
-  leftHandIkWeight: 0
+  animator: {fileID: 0}
+  drawGizmos: 0
   headLookAtWeight: 0
+  lookAtTarget: {fileID: 4190910811973481312}
+  rightHandTarget:
+    positionTarget: {fileID: 4190910810597503008}
+    rotationTarget: {fileID: 0}
+    positionWeight: 0
+    rotationWeight: 0
+    ikGoal: 3
+  leftHandTarget:
+    positionTarget: {fileID: 4190910810571894853}
+    rotationTarget: {fileID: 0}
+    positionWeight: 0
+    rotationWeight: 0
+    ikGoal: 2
+  rightFootTarget:
+    positionTarget: {fileID: 4190910810638597730}
+    rotationTarget: {fileID: 0}
+    positionWeight: 0
+    rotationWeight: 0
+    ikGoal: 1
+  leftFootTarget:
+    positionTarget: {fileID: 4190910812173752445}
+    rotationTarget: {fileID: 0}
+    positionWeight: 0
+    rotationWeight: 0
+    ikGoal: 0
 --- !u!1 &4190910811973481313
 GameObject:
   m_ObjectHideFlags: 0

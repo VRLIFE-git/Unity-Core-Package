@@ -16,23 +16,18 @@ namespace Vrlife.Core.Mvc
         public static readonly string LeftHandTargetName = nameof(leftHandTarget);
         public static readonly string LeftFootTargetName = nameof(leftFootTarget);
 
-        [SerializeField] private Transform lookAtTarget;
-        [SerializeField] private Transform rightHandTarget;
-        [SerializeField] private Transform leftHandTarget;
-        [SerializeField] private Transform rightFootTarget;
-        [SerializeField] private Transform leftFootTarget;
-
-        [Range(0, 1)] [SerializeField] private float rightFootIkWeight;
-
-        [Range(0, 1)] [SerializeField] private float leftFootIkWeight;
-
-        [Range(0, 1)] [SerializeField] private float rightHandIkWeight;
-
-        [Range(0, 1)] [SerializeField] private float leftHandIkWeight;
-
         [Range(0, 1)] [SerializeField] private float headLookAtWeight;
+        [SerializeField] private Transform lookAtTarget;
+        [SerializeField] private IkLimb rightHandTarget;
+        [SerializeField] private IkLimb leftHandTarget;
+        [SerializeField] private IkLimb rightFootTarget;
+        [SerializeField] private IkLimb leftFootTarget;
 
-
+        public IkLimb RightHand => rightHandTarget;
+        public IkLimb LeftHand => leftHandTarget;
+        public IkLimb RightFoot => rightFootTarget;
+        public IkLimb LeftFoot => leftFootTarget;
+        
         protected override void OnStarted()
         {
             if (!animator)
@@ -45,51 +40,14 @@ namespace Vrlife.Core.Mvc
             set => lookAtTarget = value;
         }
 
-        public Transform RightHandTarget  {
-            get => rightHandTarget;
-            set => rightHandTarget = value;
-        }
-
-        public Transform LeftHandTarget  {
-            get => leftHandTarget;
-            set => leftHandTarget = value;
-        }
-
-        public Transform RightFootTarget  {
-            get => rightFootTarget;
-            set => rightFootTarget = value;
-        }
-
-        public Transform LeftFootTarget {
-            get => leftFootTarget;
-            set => leftFootTarget = value;
-        }
-
-        public float RightFootIkWeight {
-            get => rightFootIkWeight;
-            set => rightFootIkWeight = value;
-        }
-
-        public float LeftFootIkWeight  {
-            get => leftFootIkWeight;
-            set => leftFootIkWeight = value;
-        }
-
-        public float RightHandIkWeight  {
-            get => rightHandIkWeight;
-            set => rightHandIkWeight = value;
-        }
-
-        public float LeftHandIkWeight  {
-            get => leftHandIkWeight;
-            set => leftHandIkWeight = value;
-        }
-
-        public float HeadLookAtWeight  {
+        public float HeadLookAtWeight
+        {
             get => headLookAtWeight;
             set => headLookAtWeight = value;
         }
 
+
+     
         private void OnAnimatorIK(int layerIndex)
         {
             if (animator)
@@ -105,49 +63,14 @@ namespace Vrlife.Core.Mvc
                     }
 
                     // Set the hands and foot target position and rotation, if one has been assigned
-                    if (RightHandTarget != null)
-                    {
-                        animator.SetIKPositionWeight(AvatarIKGoal.RightHand, RightHandIkWeight);
-                        animator.SetIKRotationWeight(AvatarIKGoal.RightHand, RightHandIkWeight);
-                        animator.SetIKPosition(AvatarIKGoal.RightHand, RightHandTarget.position);
-                        animator.SetIKRotation(AvatarIKGoal.RightHand, RightHandTarget.rotation);
-                    }
-
-                    if (LeftHandTarget != null)
-                    {
-                        animator.SetIKPositionWeight(AvatarIKGoal.LeftHand, LeftHandIkWeight);
-                        animator.SetIKRotationWeight(AvatarIKGoal.LeftHand, LeftHandIkWeight);
-                        animator.SetIKPosition(AvatarIKGoal.LeftHand, LeftHandTarget.position);
-                        animator.SetIKRotation(AvatarIKGoal.LeftHand, LeftHandTarget.rotation);
-                    }
-
-                    if (RightFootTarget != null)
-                    {
-                        animator.SetIKPositionWeight(AvatarIKGoal.RightFoot, RightFootIkWeight);
-                        animator.SetIKRotationWeight(AvatarIKGoal.RightFoot, RightFootIkWeight);
-                        animator.SetIKPosition(AvatarIKGoal.RightFoot, RightFootTarget.position);
-                        animator.SetIKRotation(AvatarIKGoal.RightFoot, RightFootTarget.rotation);
-                    }
-
-                    if (LeftFootTarget != null)
-                    {
-                        animator.SetIKPositionWeight(AvatarIKGoal.LeftFoot, LeftFootIkWeight);
-                        animator.SetIKRotationWeight(AvatarIKGoal.LeftFoot, LeftFootIkWeight);
-                        animator.SetIKPosition(AvatarIKGoal.LeftFoot, LeftFootTarget.position);
-                        animator.SetIKRotation(AvatarIKGoal.LeftFoot, LeftFootTarget.rotation);
-                    }
+                    LeftHand.Apply(animator);
+                    RightHand.Apply(animator);
+                    LeftFoot.Apply(animator);
+                    RightFoot.Apply(animator);
                 }
                 //if the IK is not active, set the position and rotation of the hand and head back to the original position
                 else
                 {
-                    animator.SetIKPositionWeight(AvatarIKGoal.RightHand, 0);
-                    animator.SetIKRotationWeight(AvatarIKGoal.RightHand, 0);
-                    animator.SetIKPositionWeight(AvatarIKGoal.LeftHand, 0);
-                    animator.SetIKRotationWeight(AvatarIKGoal.LeftHand, 0);
-                    animator.SetIKPositionWeight(AvatarIKGoal.RightFoot, 0);
-                    animator.SetIKRotationWeight(AvatarIKGoal.RightFoot, 0);
-                    animator.SetIKPositionWeight(AvatarIKGoal.LeftFoot, 0);
-                    animator.SetIKRotationWeight(AvatarIKGoal.LeftFoot, 0);
                     animator.SetLookAtWeight(0);
                 }
             }
@@ -157,11 +80,11 @@ namespace Vrlife.Core.Mvc
         {
             if(!drawGizmos) return;
 
-            DrawHandleGizmo(leftHandTarget, Color.red);
-            DrawHandleGizmo(leftFootTarget, Color.red);
+            DrawHandleGizmo(leftHandTarget.positionTarget, Color.red);
+            DrawHandleGizmo(leftFootTarget.positionTarget, Color.red);
 
-            DrawHandleGizmo(rightHandTarget, Color.blue);
-            DrawHandleGizmo(rightFootTarget, Color.blue);
+            DrawHandleGizmo(rightHandTarget.positionTarget, Color.blue);
+            DrawHandleGizmo(rightFootTarget.positionTarget, Color.blue);
 
             DrawHandleGizmo(lookAtTarget, Color.green);
         }
@@ -172,7 +95,7 @@ namespace Vrlife.Core.Mvc
 
             Gizmos.color = color;
 
-            Gizmos.DrawSphere(handle.position, .2f);
+            Gizmos.DrawSphere(handle.position, .02f);
 
             DrawLine(handle.position - handle.forward / 2, handle.position + handle.forward, Color.blue);
             DrawLine(handle.position - handle.right / 2, handle.position + handle.right, Color.red);
