@@ -56,5 +56,10 @@ namespace Vrlife.Core.Mvc.Implementations
         protected virtual void OnUpdated()
         {
         }
+
+        public virtual void RenderViewModel(TViewModel model)
+        {
+            Controller.RenderViewModel(model);
+        }
     }
 }
