@@ -16,13 +16,11 @@ namespace Vrlife.Core
     {
     }
 
-    
-    
+
     public class ProximityWatcher : AViewComponent, IDisposable
     {
-        [Tooltip("If delegated object resides somewhere else in hierarchy.")]
-
-        [SerializeField] private string[] watchedTags;
+        [Tooltip("If delegated object resides somewhere else in hierarchy.")] [SerializeField]
+        private string[] watchedTags;
 
         private List<GameObject> _collidingObjects;
 
@@ -46,8 +44,8 @@ namespace Vrlife.Core
         private void OnCollisionEnter(Collision other)
         {
             var collidingGo = GetObject(other.collider);
-         
-            if(!collidingGo) return;
+
+            if (!collidingGo) return;
 
             _collidingObjects.Add(collidingGo);
 
@@ -57,7 +55,7 @@ namespace Vrlife.Core
         private void OnCollisionExit(Collision other)
         {
             var collidingGo = GetObject(other.collider);
-            if(!collidingGo) return;
+            if (!collidingGo) return;
             _collidingObjects.Remove(collidingGo);
 
             onProximityCollisionExit?.Invoke(this, other);
@@ -66,8 +64,8 @@ namespace Vrlife.Core
         private GameObject GetObject(Component other)
         {
             if (watchedTags.Length > 0 && !watchedTags.Contains(other.gameObject.tag)) return null;
-            if (!watchCollision && !watchTrigger)  return null;
-            
+            if (!watchCollision && !watchTrigger) return null;
+
             var collidingGo = other.gameObject;
 
             var delegatedCollider = collidingGo.GetComponent<DelegatedCollider>();
@@ -82,22 +80,22 @@ namespace Vrlife.Core
         private void OnTriggerEnter(Collider other)
         {
             var collidingGo = GetObject(other);
-         
-            if(!collidingGo) return;
+
+            if (!collidingGo) return;
 
             _collidingObjects.Add(collidingGo);
-            
+
             onProximityTriggerEnter?.Invoke(this, other);
         }
 
         private void OnTriggerExit(Collider other)
         {
             var collidingGo = GetObject(other);
-         
-            if(!collidingGo) return;
+
+            if (!collidingGo) return;
 
             _collidingObjects.Remove(collidingGo);
-            
+
             onProximityTriggerExit?.Invoke(this, other);
         }
 
@@ -108,7 +106,7 @@ namespace Vrlife.Core
 
         public void Dispose()
         {
-            _collidingObjects.Clear();
+            _collidingObjects?.Clear();
         }
     }
 }
