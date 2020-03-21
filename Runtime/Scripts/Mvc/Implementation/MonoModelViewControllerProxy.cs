@@ -11,6 +11,12 @@ namespace Vrlife.Core.Mvc.Implementations
 
         [SerializeField] protected TViewModel viewModel;
 
+        public TViewModel ViewModel
+        {
+            get => viewModel;
+            set => viewModel = value;
+        }
+
         protected override void OnStarted()
         {
             ApplyViewModel();
