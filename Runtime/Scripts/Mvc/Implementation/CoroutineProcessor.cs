@@ -20,7 +20,7 @@ namespace Vrlife.Core.Mvc.Implementations
 
             return coroutine;
         }
-
+        
         public Coroutine Process(IEnumerable<IEnumerator> logic, Action onCompleted)
         {
             var coroutine = StartCoroutine(CoroutineProcessing(logic, onCompleted));

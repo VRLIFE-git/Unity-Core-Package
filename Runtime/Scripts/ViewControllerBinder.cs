@@ -11,10 +11,6 @@ namespace Vrlife.Core
         public ViewControllerBinder(DiContainer container)
         {
             _container = container;
-
-//            var rect = new RectTransform();
-//            
-//            rect.offsetMax
         }
 
 

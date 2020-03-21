@@ -10,5 +10,11 @@ namespace Vrlife.Core.Mvc
         {
             return new ViewControllerBinder<TView, TController>(container);
         }
+        
+        public static ViewControllerBinder<TView, TController>
+            BindModelViewController<TModel, TView, TController>(this DiContainer container) where TController : IController<TView, TModel>
+        {
+            return new ViewControllerBinder<TView, TController>(container);
+        }
     }
 }

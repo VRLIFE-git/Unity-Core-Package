@@ -3,15 +3,15 @@ using System.Linq;
 
 namespace Vrlife.Core
 {
-    class CommandBuffer : ICommandBuffer
+    public class ParallelCommandBuffer : ICommandBuffer
     {
         private List<Command> _commands;
-        
+
         private bool _disposed = false;
 
         public IReadOnlyCollection<Command> Commands => _commands;
-        
-        public CommandBuffer(IEnumerable<Command> commands)
+
+        public ParallelCommandBuffer(IEnumerable<Command> commands)
         {
             _commands = new List<Command>(commands);
         }

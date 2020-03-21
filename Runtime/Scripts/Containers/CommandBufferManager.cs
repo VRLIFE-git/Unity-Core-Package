@@ -36,7 +36,7 @@ namespace Vrlife.Core
             if (commands == null)
                 return;
 
-            _commandBuffer = new CommandBuffer(commands);
+            _commandBuffer = new ParallelCommandBuffer(commands);
         }
 
         protected void UpdateCommandBuffer()

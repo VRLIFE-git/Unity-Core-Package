@@ -5,6 +5,15 @@ namespace Vrlife.Core.Mvc.Implementations
 {
     public static class CoroutineProcessorHelpers
     {
+        public static CoroutineBuilder BuildDelayed(this ICoroutineProcessor processor, float delaySeconds)
+        {
+            var result = new CoroutineBuilder(processor);
+
+            result.WaitForSeconds(delaySeconds);
+
+            return result;
+        }
+        
         public static CoroutineBuilder Build(this ICoroutineProcessor processor, IEnumerator logic)
         {
             var result = new CoroutineBuilder(processor);
