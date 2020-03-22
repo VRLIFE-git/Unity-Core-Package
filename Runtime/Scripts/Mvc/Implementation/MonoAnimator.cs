@@ -11,6 +11,11 @@ namespace Vrlife.Core.Mvc.Implementations
     {
         private Animator _animator;
 
+        protected override void OnAwoke()
+        {
+            _animator = GetComponent<Animator>();
+        }
+
         public event EventHandler<MonoAnimatorStateEventHandler> StateExited;
 
         public event EventHandler<MonoAnimatorStateEventHandler> StateEntered;
