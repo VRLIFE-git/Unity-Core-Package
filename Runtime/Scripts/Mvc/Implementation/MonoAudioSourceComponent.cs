@@ -21,5 +21,15 @@ namespace Vrlife.Core.Mvc.Implementations
         {
             audioSource.PlayOneShot(clip, volume);
         }
+
+        public void Play()
+        {
+            audioSource.Play();
+        }
+
+        public void Stop()
+        {
+            audioSource.Stop();
+        }
     }
 }

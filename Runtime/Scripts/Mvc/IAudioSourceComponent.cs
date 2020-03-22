@@ -6,5 +6,7 @@ namespace Vrlife.Core.Mvc
     {
         void PlayOneShot(AudioClip clip);
         void PlayOneShot(AudioClip clip, float volumeScale);
+        void Play();
+        void Stop();
     }
 }
