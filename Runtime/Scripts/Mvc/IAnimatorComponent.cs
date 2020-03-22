@@ -1,4 +1,5 @@
 ﻿using System;
+using UnityEngine;
 using Vrlife.Core.Mvc.Implementations;
 
 namespace Vrlife.Core.Mvc
@@ -24,7 +25,17 @@ namespace Vrlife.Core.Mvc
         float GetLayerWeight(int layerId);
 
         string GetLayerName(int layerId);
-        
-        
+
+        void StopParameter(Coroutine coroutine);
+
+        Coroutine SetFloatParameterAnimated(int id,
+            AnimationCurve curve,
+            float speed = 1,
+            float? axisXMaxValue = null);
+
+        Coroutine SetIntParameterAnimated(int id,
+            AnimationCurve curve,
+            float speed = 1,
+            float? axisXMaxValue = null);
     }
 }

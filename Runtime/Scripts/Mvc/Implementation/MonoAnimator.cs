@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using System.Linq;
 using UnityEngine;
 using Vrlife.Core.Mvc.Abstractions;
 
@@ -8,12 +10,14 @@ namespace Vrlife.Core.Mvc.Implementations
     public class MonoAnimator : AViewComponent, IAnimatorComponent
     {
         private Animator _animator;
+
         public event EventHandler<MonoAnimatorStateEventHandler> StateExited;
+
         public event EventHandler<MonoAnimatorStateEventHandler> StateEntered;
 
-        protected override void OnAwoke()
+        public override void OnDestroyed()
         {
-            _animator = GetComponent<Animator>();
+            StopAllCoroutines();
         }
 
         public void SetTrigger(int id)
@@ -31,6 +35,81 @@ namespace Vrlife.Core.Mvc.Implementations
             _animator.ResetTrigger(id);
         }
 
+        public void StopParameter(Coroutine coroutine)
+        {
+            if (coroutine == null) return;
+
+            StopCoroutine(coroutine);
+        }
+
+        public Coroutine SetFloatParameterAnimated(int id,
+            AnimationCurve curve,
+            float speed = 1,
+            float? axisXMaxValue = null)
+        {
+            if (!axisXMaxValue.HasValue)
+            {
+                axisXMaxValue = curve.keys.Max(x => x.time);
+            }
+
+            return StartCoroutine(FloatParameterAnimation(id, speed, curve, axisXMaxValue.Value));
+        }
+
+
+        public Coroutine SetIntParameterAnimated(int id,
+            AnimationCurve curve,
+            float speed = 1,
+            float? axisXMaxValue = null)
+        {
+            if (!axisXMaxValue.HasValue)
+            {
+                axisXMaxValue = curve.keys.Max(x => x.time);
+            }
+
+            return StartCoroutine(IntParameterAnimation(id, speed, curve, axisXMaxValue.Value));
+        }
+
+        private IEnumerator FloatParameterAnimation(int paramId, float speed, AnimationCurve curve, float axisXMaxValue)
+        {
+            var progress = 0f;
+
+            while (progress < axisXMaxValue)
+            {
+                if (progress >= axisXMaxValue)
+                {
+                    yield break;
+                }
+
+                var value = curve.Evaluate(progress);
+
+                SetParameter(paramId, value);
+
+                yield return new WaitForEndOfFrame();
+
+                progress += Time.deltaTime * speed;
+            }
+        }
+
+        private IEnumerator IntParameterAnimation(int paramId, float speed, AnimationCurve curve, float axisXMaxValue)
+        {
+            var progress = 0f;
+
+            while (progress < axisXMaxValue)
+            {
+                if (progress >= axisXMaxValue)
+                {
+                    yield break;
+                }
+
+                var value = curve.Evaluate(progress);
+
+                SetParameter(paramId, (int) value);
+
+                yield return new WaitForEndOfFrame();
+
+                progress += Time.deltaTime * speed;
+            }
+        }
 
         public void SetLayerWeight(int layerId, float value)
         {
