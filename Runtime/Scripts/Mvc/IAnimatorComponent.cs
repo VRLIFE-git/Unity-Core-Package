@@ -37,5 +37,9 @@ namespace Vrlife.Core.Mvc
             AnimationCurve curve,
             float speed = 1,
             float? axisXMaxValue = null);
+        Coroutine SetLayerWeightAnimated(int id,
+            AnimationCurve curve,
+            float speed = 1,
+            float? axisXMaxValue = null);
     }
 }

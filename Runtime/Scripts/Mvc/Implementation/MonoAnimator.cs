@@ -52,7 +52,8 @@ namespace Vrlife.Core.Mvc.Implementations
                 axisXMaxValue = curve.keys.Max(x => x.time);
             }
 
-            return StartCoroutine(FloatParameterAnimation(id, speed, curve, axisXMaxValue.Value));
+            return StartCoroutine(ValueAnimation(id, speed, curve, axisXMaxValue.Value,
+                SetParameter));
         }
 
 
@@ -66,10 +67,23 @@ namespace Vrlife.Core.Mvc.Implementations
                 axisXMaxValue = curve.keys.Max(x => x.time);
             }
 
-            return StartCoroutine(IntParameterAnimation(id, speed, curve, axisXMaxValue.Value));
+            return StartCoroutine(ValueAnimation(id, speed, curve, axisXMaxValue.Value,
+                (index, value) => { SetParameter(index, (int) value); }));
         }
 
-        private IEnumerator FloatParameterAnimation(int paramId, float speed, AnimationCurve curve, float axisXMaxValue)
+        public Coroutine SetLayerWeightAnimated(int id, AnimationCurve curve, float speed = 1,
+            float? axisXMaxValue = null)
+        {
+            if (!axisXMaxValue.HasValue)
+            {
+                axisXMaxValue = curve.keys.Max(x => x.time);
+            }
+
+            return StartCoroutine(ValueAnimation(id, speed, curve, axisXMaxValue.Value, SetLayerWeight));
+        }
+
+        private IEnumerator ValueAnimation(int paramId, float speed, AnimationCurve curve, float axisXMaxValue,
+            Action<int, float> logic)
         {
             var progress = 0f;
 
@@ -81,6 +95,8 @@ namespace Vrlife.Core.Mvc.Implementations
                 }
 
                 var value = curve.Evaluate(progress);
+
+                logic(paramId, value);
 
                 SetParameter(paramId, value);
 
@@ -90,26 +106,6 @@ namespace Vrlife.Core.Mvc.Implementations
             }
         }
 
-        private IEnumerator IntParameterAnimation(int paramId, float speed, AnimationCurve curve, float axisXMaxValue)
-        {
-            var progress = 0f;
-
-            while (progress < axisXMaxValue)
-            {
-                if (progress >= axisXMaxValue)
-                {
-                    yield break;
-                }
-
-                var value = curve.Evaluate(progress);
-
-                SetParameter(paramId, (int) value);
-
-                yield return new WaitForEndOfFrame();
-
-                progress += Time.deltaTime * speed;
-            }
-        }
 
         public void SetLayerWeight(int layerId, float value)
         {
