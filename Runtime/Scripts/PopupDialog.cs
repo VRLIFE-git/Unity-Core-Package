@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.Events;
 
 namespace Vrlife.Core
@@ -8,6 +9,10 @@ namespace Vrlife.Core
         public UnityEvent onOpening;
         public UnityEvent onClosing;
 
+        private void Awake()
+        {
+            gameObject.SetActive(false);
+        }
 
         public virtual void Dispose()
         {
