@@ -9,6 +9,7 @@ namespace Vrlife.Core.Mvc
     {
         Coroutine Process(IEnumerator logic, Action onCompleted);
         Coroutine Process(IEnumerable<IEnumerator> logic, Action onCompleted);
+        Coroutine Process<TContext>(IEnumerable<IEnumerator> logic, TContext context, Action onCompleted) where TContext : class;
         void Stop(Coroutine coroutine);
     }
 }

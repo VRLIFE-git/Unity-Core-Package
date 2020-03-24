@@ -5,44 +5,47 @@ using UnityEngine;
 
 namespace Vrlife.Core.Mvc.Implementations
 {
-    public class LogicWrapper : IEnumerator
+    public class CoroutineBuilder<TContext> : CoroutineBuilder where TContext : class
     {
-        private readonly Action logic;
-
-        public LogicWrapper(Action logic)
+        private readonly TContext _context;
+        
+        public CoroutineBuilder(ICoroutineProcessor processor, TContext context) : base(processor)
         {
-            this.logic = logic;
+            _context = context;
+        }
+        
+        public CoroutineBuilder Then(Action<TContext> logic)
+        {
+            _coroutines.Add(new LogicWrapper<TContext>(logic));
+
+            return this;
         }
 
-        public bool MoveNext()
+        public override void Execute()
         {
-            logic?.Invoke();
-            return false;
+            var coroutines = _coroutines.ToArray();
+            
+            Processor.Process(coroutines, _context, Dispose);
         }
-
-        public void Reset()
-        {
-        }
-
-        public object Current => null;
     }
-    
+
     public class CoroutineBuilder : IDisposable
     {
-        private readonly List<IEnumerator> _coroutines;
+        protected readonly List<IEnumerator> _coroutines;
 
-        private readonly ICoroutineProcessor _processor;
+        protected ICoroutineProcessor Processor { get; }
 
         private Coroutine _coroutine;
 
         private bool _disposed;
-        
+
         public IReadOnlyCollection<IEnumerator> Coroutines => _coroutines;
+
 
         public CoroutineBuilder(ICoroutineProcessor processor)
         {
             _coroutines = new List<IEnumerator>();
-            _processor = processor;
+            Processor = processor;
         }
 
         public CoroutineBuilder WaitForSeconds(float seconds)
@@ -65,7 +68,7 @@ namespace Vrlife.Core.Mvc.Implementations
 
             return this;
         }
-        
+
         public CoroutineBuilder Then(Action logic)
         {
             _coroutines.Add(new LogicWrapper(logic));
@@ -73,11 +76,11 @@ namespace Vrlife.Core.Mvc.Implementations
             return this;
         }
 
-        public void Execute()
+        public virtual void Execute()
         {
             var coroutines = _coroutines.ToArray();
-            
-             _coroutine =  _processor.Process(coroutines, Dispose);
+
+            _coroutine = Processor.Process(coroutines, Dispose);
         }
 
         private static IEnumerator WaitForSecondsInternal(float seconds)
@@ -93,9 +96,9 @@ namespace Vrlife.Core.Mvc.Implementations
 
             if (_coroutine != null)
             {
-                _processor.Stop(_coroutine);
+                Processor.Stop(_coroutine);
             }
-            
+
             _coroutines.Clear();
         }
     }

@@ -20,10 +20,18 @@ namespace Vrlife.Core.Mvc.Implementations
 
             return coroutine;
         }
-        
+
         public Coroutine Process(IEnumerable<IEnumerator> logic, Action onCompleted)
         {
             var coroutine = StartCoroutine(CoroutineProcessing(logic, onCompleted));
+
+            return coroutine;
+        }
+
+        public Coroutine Process<TContext>(IEnumerable<IEnumerator> logic, TContext context, Action onCompleted)
+            where TContext : class
+        {
+            var coroutine = StartCoroutine(CoroutineProcessing(logic, context, onCompleted));
 
             return coroutine;
         }
@@ -39,7 +47,23 @@ namespace Vrlife.Core.Mvc.Implementations
             {
                 yield return func;
             }
-            
+
+            onCompleted?.Invoke();
+        }
+
+        private IEnumerator CoroutineProcessing<TContext>(IEnumerable<IEnumerator> logic, TContext context,
+            Action onCompleted) where TContext : class
+        {
+            foreach (var func in logic)
+            {
+                if (func is LogicWrapper<TContext> wrapper)
+                {
+                    wrapper.ExecLogic(context);
+                }
+                
+                yield return func;
+            }
+
             onCompleted?.Invoke();
         }
 
@@ -50,7 +74,6 @@ namespace Vrlife.Core.Mvc.Implementations
 
         public void Dispose()
         {
-            
         }
     }
 }
