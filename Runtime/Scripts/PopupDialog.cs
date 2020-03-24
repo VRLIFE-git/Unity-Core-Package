@@ -23,10 +23,22 @@ namespace Vrlife.Core
         {
             Dispose();
             onClosing?.Invoke();
+            OnClosed();
+        }
+
+        protected virtual void OnClosed()
+        {
+            
+        }
+
+        protected virtual void OnOpened()
+        {
+            
         }
 
         public void Open()
         {
+            OnOpened();
             gameObject.SetActive(true);
             onOpening?.Invoke();
         }
