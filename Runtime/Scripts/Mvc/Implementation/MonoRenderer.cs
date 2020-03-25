@@ -6,13 +6,14 @@ using Zenject;
 namespace Vrlife.Core.Mvc.Implementations
 {
     
-    [RequireComponent(typeof(Renderer))]
+    [RequireComponent(typeof(MeshRenderer))]
     public class MonoRenderer : AViewComponent, IRendererComponent
     {
         private Renderer _renderer;
-
+        private MeshFilter _filter;
         protected override void OnAwoke()
         {
+            _filter = GetComponent<MeshFilter>();
             _renderer = GetComponent<Renderer>();
         }
 
@@ -39,6 +40,16 @@ namespace Vrlife.Core.Mvc.Implementations
         public Material GetMaterial(int index)
         {
             return _renderer.materials[index];
+        }
+
+        public void SetMesh(Mesh mesh)
+        {
+            _filter.mesh = mesh;
+        }
+
+        public Mesh GetMesh()
+        {
+            return _filter.mesh;
         }
     }
 }
