@@ -14,6 +14,10 @@ namespace Vrlife.Core.Mvc
 
         Material GetMaterial(int index);
 
+        void SetMesh(Mesh mesh);
+
+        Mesh GetMesh();
+
 //        void SetColor(int shaderId, Color color);
 //
 //        Color GetColor(int shaderId);
