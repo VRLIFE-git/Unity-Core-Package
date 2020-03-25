@@ -17,6 +17,9 @@ namespace Vrlife.Core.Mvc
         void SetMesh(Mesh mesh);
 
         Mesh GetMesh();
+        void SetSharedMesh(Mesh mesh);
+
+        Mesh GetSharedMesh();
 
 //        void SetColor(int shaderId, Color color);
 //

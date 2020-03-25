@@ -51,5 +51,15 @@ namespace Vrlife.Core.Mvc.Implementations
         {
             return _filter.mesh;
         }
+
+        public void SetSharedMesh(Mesh mesh)
+        {
+            _filter.sharedMesh = mesh;
+        }
+
+        public Mesh GetSharedMesh()
+        {
+            return _filter.sharedMesh;
+        }
     }
 }
