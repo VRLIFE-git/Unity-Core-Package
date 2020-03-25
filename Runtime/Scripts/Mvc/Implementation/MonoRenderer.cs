@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using ICSharpCode.NRefactory.Ast;
+using UnityEngine;
 using Vrlife.Core.Mvc.Abstractions;
 using Zenject;
 
@@ -28,6 +29,16 @@ namespace Vrlife.Core.Mvc.Implementations
             SetVisible(!IsVisible);
 
             return IsVisible;
+        }
+
+        public void SetMaterial(int index, Material material)
+        {
+            _renderer.materials[index] = material;
+        }
+
+        public Material GetMaterial(int index)
+        {
+            return _renderer.materials[index];
         }
     }
 }
