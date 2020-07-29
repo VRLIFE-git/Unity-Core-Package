@@ -1,5 +1,8 @@
-﻿using UnityEngine;
+﻿using System.ComponentModel;
+using JetBrains.Annotations;
+using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
 using Zenject;
 
 namespace Vrlife.Core
@@ -9,6 +12,20 @@ namespace Vrlife.Core
         [SerializeField] private InfoCardHeader header;
         [SerializeField] private InfoCardBody body;
         [SerializeField] private InfoCardFooter footer;
+
+        [Header("Accessor shortcuts")]
+        public GameObject content;
+        public Button videoButton;
+        public Button galleryButton;
+        public Button textButton;
+        public Button modelButton;
+
+        [Header("Content")] 
+        [CanBeNull] public GameObject contentText;
+        [CanBeNull] public GameObject contentGallery;
+        [CanBeNull] public GameObject contentVideo;
+        [CanBeNull] public GameObject contentModel;
+
 
         public InfoCardHeader Header => header;
 
@@ -46,5 +63,11 @@ namespace Vrlife.Core
         {
             onCloseCard.Invoke();
         }
+
+        private void OnDestroy()
+        {
+            Destroy(this.contentModel?.gameObject);
+        }
+        
     }
 }
