@@ -14,6 +14,7 @@ namespace Vrlife.Core
         [SerializeField] private InfoCardFooter footer;
 
         [Header("Accessor shortcuts")]
+        public GameObject spacer;
         public GameObject content;
         public Button videoButton;
         public Button galleryButton;

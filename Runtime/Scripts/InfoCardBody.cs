@@ -9,7 +9,7 @@ namespace Vrlife.Core
     {
         [SerializeField] private Transform container;
         [SerializeField] public TextMeshProUGUI content;
-        [SerializeField] private Image background;
+        [SerializeField] public Image background;
 
         private List<GameObject> _content;
 
@@ -24,6 +24,14 @@ namespace Vrlife.Core
             gameObject.transform.SetParent(container, false);
         }
         
+        public void AddBody(GameObject[] gameObjects)
+        {
+            foreach (GameObject gameObject in gameObjects)
+            {
+                AddBody(gameObject);
+            }
+        }
+        
         public void Clear()
         {
             _content.Clear();
@@ -32,6 +40,7 @@ namespace Vrlife.Core
 
         public void SetTextColor(Color color)
         {
+            if (content == null) return;
             content.color = color;
         }
 
