@@ -40,12 +40,13 @@ namespace Vrlife.Core
 
         public void SetTextColor(Color color)
         {
-            if (content == null) return;
+            if (content == null || color == null) return;
             content.color = color;
         }
 
         public void SetBackgroundColor(Color color)
         {
+            if (background == null || color == null) return;
             background.color = color;
         }
 
