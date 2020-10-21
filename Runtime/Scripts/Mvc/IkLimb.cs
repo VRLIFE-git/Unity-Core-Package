@@ -32,7 +32,7 @@ namespace Vrlife.Core.Mvc
                 if (hintTarget)
                 {
                     animator.SetIKHintPosition(ikHint, hintTarget.position);
-                    animator.SetIKHintPositionWeight(ikHint, 1);
+                    animator.SetIKHintPositionWeight(ikHint, hintPositionWeight);
                 }
                 animator.SetIKPosition(ikGoal, positionTarget.position);
                 animator.SetIKPositionWeight(ikGoal, positionWeight);
