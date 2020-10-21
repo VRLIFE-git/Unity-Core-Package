@@ -7,6 +7,7 @@ namespace Vrlife.Core.Mvc
     public class IkLimb
     {
         public Transform positionTarget;
+        public Transform hintTarget;
 
         public Transform rotationTarget;
 
@@ -17,11 +18,18 @@ namespace Vrlife.Core.Mvc
         public float rotationWeight;
 
         public AvatarIKGoal ikGoal;
+        public AvatarIKHint ikHint;
 
         public void Apply(Animator animator)
         {
+            
+            
             if (positionTarget)
             {
+                if (hintTarget)
+                {
+                    animator.SetIKHintPosition(ikHint, hintTarget.position);
+                }
                 animator.SetIKPosition(ikGoal, positionTarget.position);
                 animator.SetIKPositionWeight(ikGoal, positionWeight);
             }
