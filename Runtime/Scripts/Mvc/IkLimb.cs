@@ -16,6 +16,9 @@ namespace Vrlife.Core.Mvc
 
         [Range(0,1)]
         public float rotationWeight;
+        
+        [Range(0,1)]
+        public float hintPositionWeight;
 
         public AvatarIKGoal ikGoal;
         public AvatarIKHint ikHint;
@@ -29,6 +32,7 @@ namespace Vrlife.Core.Mvc
                 if (hintTarget)
                 {
                     animator.SetIKHintPosition(ikHint, hintTarget.position);
+                    animator.SetIKHintPositionWeight(ikHint, 1);
                 }
                 animator.SetIKPosition(ikGoal, positionTarget.position);
                 animator.SetIKPositionWeight(ikGoal, positionWeight);
