@@ -12,6 +12,7 @@ namespace Vrlife.Core
         [SerializeField] private InfoCardHeader header;
         [SerializeField] private InfoCardBody body;
         [SerializeField] private InfoCardFooter footer;
+        [SerializeField] private GameObject gameObject;
 
         [Header("Accessor shortcuts")]
         public GameObject spacer;
@@ -27,7 +28,8 @@ namespace Vrlife.Core
         [CanBeNull] public GameObject contentVideo;
         [CanBeNull] public GameObject contentModel;
 
-
+        public GameObject GameObject => gameObject;
+        
         public InfoCardHeader Header => header;
 
         public InfoCardBody Body => body;
