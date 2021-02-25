@@ -11,7 +11,15 @@ namespace Plugins.com.vrlife.core.Editor
         {
             static AutomaticUpdate()
             {
-                Client.Add("https://github.com/virtual-real-life/Unity-Core-Package.git");
+                try
+                {
+                    Client.Add("https://github.com/virtual-real-life/Unity-Core-Package.git");
+                }
+                catch
+                {
+                    Debug.Log("VRL Core package already exists.");
+                }
+                
             }
         }
     }
